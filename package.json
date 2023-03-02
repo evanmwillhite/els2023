@@ -1,0 +1,17 @@
+{
+  "name": "els-2023",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Evan Willhite",
+  "devDependencies": {
+    "browser-sync": "^2.28.1",
+    "cssnano": "^5.1.15",
+    "gh-pages": "^5.0.0",
+    "gulp-file-include": "^2.3.0",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-imagemin": "^8.0.0",
+    "gulp-postcss": "^9.0.1",
+    "gulp-sass": "^5.1.0",
+    "gulp-terser": "^2.1.0"
+  }
+}

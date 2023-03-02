@@ -1,0 +1,24 @@
+.social-list {
+	font-size: 2em;
+
+	li {
+    display: block;
+    margin-bottom: .3em;
+    padding: 0;
+
+    @include media($medium-screen) {
+      display: inline;
+      margin: 0 .6em;
+    }
+	}
+}
+
+.footer-address {
+  line-height: 1.3;
+
+  p {
+    color: #949494;
+    font: 2em "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-bottom: 0;
+  }
+}
