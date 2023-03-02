@@ -1,6 +1,6 @@
 .image-square {
 	&.no-image {
-    @include media($large-screen) {
+    @media all and (min-width: 860em) {
       height: 30vw;
     }
   }

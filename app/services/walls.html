@@ -1,36 +1,59 @@
----
-layout: default
-title: 'Extreme Lawn Service | Services - Retaining Walls'
-body_class: 'services-slides'
----
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Extreme Lawn Service | Services - Retaining Walls</title>
+    <meta name="description" content="{{ site.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-{% include components/nav.html %}
-<div class="main-container">
-  {% include components/interior-hero.html title="Retaining Walls" link="services" secondTitle="Services" %}
-  <section>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="image-slider slider-all-controls controls-inside">
-            <ul class="slides">
-              <li>
-                <img src="/images/rockwall.jpg" />
-              </li>
-              <li>
-                <img src="/images/walls/wall1.jpg" />
-              </li>
-              <li>
-                <img src="/images/walls/wall2.jpg" />
-              </li>
-            </ul>
+    @@include('./components/styles.html')
+    
+  </head>
+
+  <body class="services-slides">
+
+    @@include('./components/nav.html')
+
+    <div class="main-container">
+      
+      @@include('./components/interior-hero.html', {
+        "title": "Retaining Walls",
+        "link": "services",
+        "secondTitle": "Services"
+      })
+      
+      <section>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="image-slider slider-all-controls controls-inside">
+                <ul class="slides">
+                  <li>
+                    <img src="/images/rockwall.jpg" />
+                  </li>
+                  <li>
+                    <img src="/images/walls/wall1.jpg" />
+                  </li>
+                  <li>
+                    <img src="/images/walls/wall2.jpg" />
+                  </li>
+                </ul>
+              </div>
+              <!--end of image slider-->
+            </div>
           </div>
-          <!--end of image slider-->
+          <!--end of row-->
         </div>
-      </div>
-      <!--end of row-->
-    </div>
-    <!--end of container-->
-</section>
+        <!--end of container-->
+    </section>
 
-{% include components/social-footer.html %}
-</div>
+    @@include('./components/social-footer.html')
+
+    </div>
+
+    @@include('./components/scripts.html')
+    
+  </body>
+</html>

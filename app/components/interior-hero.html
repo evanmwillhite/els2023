@@ -1,25 +1,24 @@
-
 <section class="page-title page-title-4 bg-secondary">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <h3 class="uppercase mb0">{{include.title}}</h3>
+        <h3 class="uppercase mb0">@@title</h3>
       </div>
       <div class="col-md-6 text-right">
         <ol class="breadcrumb breadcrumb-2">
           <li>
               <a href="/">Home</a>
           </li>
-          {% if include.secondTitle %}
+          @@if (secondTitle === true) {
           	<li class="active">
-	          	<a href="/{{include.link}}">{{include.secondTitle}}</a>
+	          	<a href="/{{include.link}}">@@secondTitle</a>
 	          </li>
-          	<li class="active">{{include.title}}</li>
-          {% else %}
+          	<li class="active">@@title</li>
+            @@if (secondTitle === false) {
 	          <li class="active">
-	          	{{include.title}}
+	          	@@title
 	          </li>
-          {% endif %}
+            }
       	</ol>
       </div>
     </div>

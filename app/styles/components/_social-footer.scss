@@ -6,7 +6,7 @@
     margin-bottom: .3em;
     padding: 0;
 
-    @include media($medium-screen) {
+    @media all and (min-width: 640em) {
       display: inline;
       margin: 0 .6em;
     }

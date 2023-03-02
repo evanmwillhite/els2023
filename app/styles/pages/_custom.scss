@@ -7,7 +7,7 @@ nav {
     span {
       display: none;
 
-      @include media($medium-screen) {
+      @media all and (min-width: 640em) {
         display: inline;
       }
     }
@@ -79,7 +79,7 @@ nav {
   & > .image {
     display: none;
 
-    @include media($large-screen) {
+    @media all and (min-width: 860em) {
       display: block;
     }
   }
@@ -87,7 +87,7 @@ nav {
   & > .content {
     margin-top: 2em;
 
-    @include media($large-screen) {
+    @media all and (min-width: 860em) {
       margin-top: 0;
     }
   }

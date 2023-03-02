@@ -1,37 +1,56 @@
----
-layout: default
-title: 'Extreme Lawn Service | Contact'
-body_class: 'contact'
----
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Extreme Lawn Service | Contact</title>
+    <meta name="description" content="{{ site.description }}">
+    <meta name="viewport" content="width=device-width, initial-scale=0.9">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-{% include components/nav.html %}
-<div class="main-container">
-	{% include components/interior-hero.html title="Contact Us" %}
-	<section>
-	  <div class="container">
-	    <div class="row">
-	      <div class="col-sm-10 col-sm-offset-1">
-	        <div class="post-snippet mb64">
-	          <hr>
-	          <p class="lead">
-	            <h3>Phone:
-		            <br><a href="tel:+6158283801">615.828.3801</a>
-		            <br><a href="tel:+6155060689">615.506.0689</a>
-	            </h3>
-	            <h4>Email:
-	            	<br><a href="mailto:justin@extremelawnservice.com">justin@extremelawnservice.com</a>
-	            </h4>
-	          </p>
-	        </div>
-	        <!--end of post snippet-->
-	        <hr>
-	      </div>
-	      <!--end of nine col-->
-	    </div>
-	    <!--end of container row-->
-	  </div>
-	  <!--end of container-->
-	</section>
-	
-	{% include components/social-footer.html %}
-</div>
+    @@include('./components/styles.html')
+    
+  </head>
+
+  <body class="contact">
+
+		@@include('./components/nav.html')
+
+		<div class="main-container">
+
+			@@include('./components/interior-hero.html', { "title": "Contact Us" })
+
+			<section>
+				<div class="container">
+					<div class="row">
+						<div class="col-sm-10 col-sm-offset-1">
+							<div class="post-snippet mb64">
+								<hr>
+								<p class="lead">
+									<h3>Phone:
+										<br><a href="tel:+6158283801">615.828.3801</a>
+										<br><a href="tel:+6155060689">615.506.0689</a>
+									</h3>
+									<h4>Email:
+										<br><a href="mailto:justin@extremelawnservice.com">justin@extremelawnservice.com</a>
+									</h4>
+								</p>
+							</div>
+							<!--end of post snippet-->
+							<hr>
+						</div>
+						<!--end of nine col-->
+					</div>
+					<!--end of container row-->
+				</div>
+				<!--end of container-->
+			</section>
+			
+			@@include('./components/social-footer.html')
+
+		</div>
+
+		@@include('./components/scripts.html')
+    
+  </body>
+</html>
