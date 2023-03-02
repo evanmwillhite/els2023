@@ -7,6 +7,7 @@ const cssnano = require('cssnano');
 const terser = require('gulp-terser');
 const imagemin = require('gulp-imagemin');
 const browsersync = require('browser-sync').create();
+const ghpages = require('gh-pages');
 
 // HTML Include task
 function htmlTask(){
@@ -80,9 +81,14 @@ function sharedTasks(){
 }
 
 if (process.env.NODE_ENV === 'production') {
-  exports.build = series(sharedTasks, pathFixes);
+  exports.build = series(sharedTasks, pathFixes, publishProject);
 } else {
   exports.build = series(sharedTasks);
 }
+
+// Publish to Github
+function publishProject(){
+  ghpages.publish('dist');
+};
 
 exports.default = series(sharedTasks);
