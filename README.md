@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Gulp: `npm install --global gulp-cli`
+- [Gulp](https://gulpjs.com/): `npm install --global gulp-cli`
 - [Yarn](https://yarnpkg.com/getting-started/install)
 
 ## Development
