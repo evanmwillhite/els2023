@@ -3,27 +3,27 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Extreme Lawn Service | Services - Erosion</title>
+    <title>Extreme Lawn Service | Services - Retaining Walls</title>
     <meta name="description" content="{{ site.description }}">
     <meta name="viewport" content="width=device-width, initial-scale=0.9">
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
-    @@include('./components/styles.html')
+    @@include('../../components/styles.html')
     
   </head>
 
   <body class="services-slides">
 
-    @@include('./components/nav.html')
+    @@include('../../components/nav.html')
 
     <div class="main-container">
-
-      @@include('./components/interior-hero.html', {
-        "title": "Erosion",
+      
+      @@include('../../components/interior-hero-double.html', {
+        "title": "Retaining Walls",
         "link": "services",
         "secondTitle": "Services"
       })
-
+      
       <section>
         <div class="container">
           <div class="row">
@@ -31,10 +31,13 @@
               <div class="image-slider slider-all-controls controls-inside">
                 <ul class="slides">
                   <li>
-                    <img src="/images/erosion/erosion1.jpg" />
+                    <img src="/images/rockwall.jpg" />
                   </li>
                   <li>
-                    <img src="/images/erosion/erosion2.jpg" />
+                    <img src="/images/walls/wall1.jpg" />
+                  </li>
+                  <li>
+                    <img src="/images/walls/wall2.jpg" />
                   </li>
                 </ul>
               </div>
@@ -46,11 +49,11 @@
         <!--end of container-->
     </section>
 
-    @@include('./components/social-footer.html')
-    
+    @@include('../../components/social-footer.html')
+
     </div>
 
-    @@include('./components/scripts.html')
+    @@include('../../components/scripts.html')
     
   </body>
 </html>

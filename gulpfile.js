@@ -1,50 +1,66 @@
 const { src, dest, watch, series } = require('gulp');
 const fileinclude = require('gulp-file-include');
 const htmlmin = require('gulp-htmlmin');
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('sass'));
 const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
 const terser = require('gulp-terser');
-const imagemin = require('gulp-imagemin');
+const autoprefixer = require('autoprefixer')
+// const imagemin = require('gulp-imagemin');
 const browsersync = require('browser-sync').create();
 const ghpages = require('gh-pages');
 
 // HTML Include task
 function htmlTask(){
   return src('app/**/*.html')
-    .pipe(fileinclude())
+    .pipe(fileinclude({
+      prefix: '@@',
+      basepath: '@file'
+    }))
     .pipe(htmlmin({ collapseWhitespace: true }))
-    .pipe(gulp.dest('dist'));
+    .pipe(dest('dist'));
 }
 
 // Sass Task
 function scssTask(){
-  return src('app/scss/style.scss', { sourcemaps: true })
+  return src('app/assets/styles/application.scss', { sourcemaps: true })
       .pipe(sass())
-      .pipe($.autoprefixer('last 2 version'))
-      .pipe(postcss([cssnano()]))
+      .pipe(postcss([ autoprefixer('last 2 version'), cssnano() ]))
       .pipe(dest('dist/styles', { sourcemaps: '.' }));
 }
 
 // JavaScript Task
 function jsTask(){
-  return src('app/scripts/**/*.js', { sourcemaps: true })
+  return src('app/assets/scripts/**/*.js', { sourcemaps: true })
     .pipe(terser())
-    .pipe(dest('dist', { sourcemaps: '.' }));
+    .pipe(dest('dist/scripts', { sourcemaps: '.' }));
 }
 
 // Image Minification Task
-function imagesTask(){
-  return src('app/images/**/*.{png,gif,jpg,jpeg,svg}')
-    .pipe(imagemin())
-    .pipe(dest('dist/images'));
+// function imagesTask(){
+//   return src('app/images/**/*.{png,gif,jpg,jpeg,svg}')
+//     .pipe(imagemin())
+//     .pipe(dest('dist/images'));
+// }
+
+// Copy Specific Directories
+function copyVendorFiles(){
+  return src('app/assets/vendor/**/*').pipe(dest('dist/vendor'));
+}
+
+function copyImageFiles(){
+  return src('app/assets/images/**/*').pipe(dest('dist/images'));
+}
+
+function copyFontFiles(){
+  return src('app/assets/fonts/**/*').pipe(dest('dist/fonts'));
 }
 
 // Browser Serve
 function browsersyncServe(cb){
   browsersync.init({
     server: {
-      baseDir: '.'
+      baseDir: 'dist',
     }    
   });
   cb();
@@ -58,8 +74,8 @@ function browsersyncReload(cb){
 
 // Watch Task
 function watchTask(){
-  watch('*.html', series(htmlTask, browsersyncReload));
-  watch(['app/**/*.scss', 'app/**/*.js'], series(scssTask, jsTask, browsersyncReload));
+  watch('app/**/*.html', series(htmlTask, browsersyncReload));
+  watch(['app/assets/**/*.scss', 'app/assets/**/*.js'], series(scssTask, jsTask, browsersyncReload));
 }
 
 // Fix Paths for Production URL.
@@ -75,7 +91,10 @@ function sharedTasks(){
   htmlTask,
   scssTask,
   jsTask,
-  imagesTask,
+  // imagesTask,
+  copyVendorFiles,
+  copyImageFiles,
+  copyFontFiles,
   browsersyncServe,
   watchTask
 }
@@ -91,4 +110,14 @@ function publishProject(){
   ghpages.publish('dist');
 };
 
-exports.default = series(sharedTasks);
+exports.default = series(
+  htmlTask,
+  scssTask,
+  jsTask,
+  // imagesTask,
+  copyVendorFiles,
+  copyImageFiles,
+  copyFontFiles,
+  browsersyncServe,
+  watchTask
+);
