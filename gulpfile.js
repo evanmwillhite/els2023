@@ -1,4 +1,4 @@
-const { src, dest, watch, series } = require('gulp');
+const { src, dest, watch, series, parallel } = require('gulp');
 const fileinclude = require('gulp-file-include');
 const htmlmin = require('gulp-htmlmin');
 const sass = require('gulp-sass')(require('sass'));
@@ -87,37 +87,32 @@ function pathFixes(){
     .pipe(gulp.dest('dist'));
 }
 
-function sharedTasks(){
-  htmlTask,
-  scssTask,
-  jsTask,
-  // imagesTask,
-  copyVendorFiles,
-  copyImageFiles,
-  copyFontFiles,
-  browsersyncServe,
-  watchTask
-}
-
-if (process.env.NODE_ENV === 'production') {
-  exports.build = series(sharedTasks, pathFixes, publishProject);
-} else {
-  exports.build = series(sharedTasks);
-}
-
 // Publish to Github
 function publishProject(){
   ghpages.publish('dist');
 };
 
-exports.default = series(
+exports.build = parallel(
   htmlTask,
   scssTask,
   jsTask,
-  // imagesTask,
   copyVendorFiles,
   copyImageFiles,
   copyFontFiles,
-  browsersyncServe,
-  watchTask
 );
+
+exports.watch = parallel(browsersyncServe, watchTask);
+
+exports.deploy = series(publishProject);
+
+// if (process.env.NODE_ENV === 'production') {
+//   exports.build = series(sharedTasks, pathFixes, publishProject);
+// } else {
+//   exports.build = series(sharedTasks);
+// }
+
+// exports.default = series(
+//   build,
+//   browsersyncServe,
+//   watchTask
+// );

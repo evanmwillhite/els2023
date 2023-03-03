@@ -17,5 +17,9 @@
     "gulp-terser": "^2.1.0",
     "postcss": "^8.4.21",
     "sass": "^1.58.3"
+  },
+  "scripts": {
+    "start": "gulp build && gulp watch",
+    "deploy": "gulp build && gulp deploy"
   }
 }
