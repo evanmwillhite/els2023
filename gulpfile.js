@@ -6,7 +6,7 @@ const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
 const terser = require('gulp-terser');
 const autoprefixer = require('autoprefixer');
-// const imagemin = require('gulp-imagemin');
+const imagemin = require('gulp-imagemin');
 const browsersync = require('browser-sync').create();
 const replace = require('gulp-replace');
 const ghpages = require('gh-pages');
@@ -38,19 +38,15 @@ function jsTask(){
 }
 
 // Image Minification Task
-// function imagesTask(){
-//   return src('app/images/**/*.{png,gif,jpg,jpeg,svg}')
-//     .pipe(imagemin())
-//     .pipe(dest('dist/images'));
-// }
+function imagesTask(){
+  return src('app/assets/images/**/*.{png,gif,jpg,jpeg,svg}')
+    .pipe(imagemin())
+    .pipe(dest('dist/images'));
+}
 
 // Copy Specific Directories
 function copyVendorFiles(){
   return src('app/assets/vendor/**/*').pipe(dest('dist/vendor'));
-}
-
-function copyImageFiles(){
-  return src('app/assets/images/**/*').pipe(dest('dist/images'));
 }
 
 function copyFontFiles(){
@@ -99,27 +95,14 @@ function publishProject(){
   return ghpages.publish('dist');
 };
 
-exports.build = parallel(
+exports.build = series(imagesTask, parallel(
   htmlTask,
   scssTask,
   jsTask,
   copyVendorFiles,
-  copyImageFiles,
   copyFontFiles,
-);
+));
 
 exports.watch = parallel(browsersyncServe, watchTask);
 
 exports.deploy = series(pathFixes, copyCNAME, publishProject);
-
-// if (process.env.NODE_ENV === 'production') {
-//   exports.build = series(sharedTasks, pathFixes, publishProject);
-// } else {
-//   exports.build = series(sharedTasks);
-// }
-
-// exports.default = series(
-//   build,
-//   browsersyncServe,
-//   watchTask
-// );
