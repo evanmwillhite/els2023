@@ -53,8 +53,8 @@ function copyFontFiles(){
   return src('app/assets/fonts/**/*').pipe(dest('dist/fonts'));
 }
 
-function copyCNAME(){
-  return src('CNAME').pipe(dest('dist'));
+function copyFiles(){
+  return src(['CNAME', 'app/crossdomain.xml', 'app/favicon.ico', 'app/robots.txt']).pipe(dest('dist'));
 }
 
 // Browser Serve
@@ -101,8 +101,9 @@ exports.build = series(imagesTask, parallel(
   jsTask,
   copyVendorFiles,
   copyFontFiles,
+  copyFiles
 ));
 
 exports.watch = parallel(browsersyncServe, watchTask);
 
-exports.deploy = series(pathFixes, copyCNAME, publishProject);
+exports.deploy = series(pathFixes, publishProject);
