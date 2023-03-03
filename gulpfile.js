@@ -5,9 +5,10 @@ const sass = require('gulp-sass')(require('sass'));
 const postcss = require('gulp-postcss');
 const cssnano = require('cssnano');
 const terser = require('gulp-terser');
-const autoprefixer = require('autoprefixer')
+const autoprefixer = require('autoprefixer');
 // const imagemin = require('gulp-imagemin');
 const browsersync = require('browser-sync').create();
+const replace = require('gulp-replace');
 const ghpages = require('gh-pages');
 
 // HTML Include task
@@ -80,16 +81,18 @@ function watchTask(){
 
 // Fix Paths for Production URL.
 function pathFixes(){
-  const ghPages = '$1http://extremelawnservice.com/';
+  const ghPages = '$1https://els.evanmwillhite.com/';
   return src('dist/**/*.html')
-    .pipe($.replace(/("|'?)\/?styles\//g,  ghPages + '/styles/'))
-    .pipe($.replace(/("|'?)\/?scripts\//g, ghPages + '/scripts/'))
-    .pipe(gulp.dest('dist'));
+    .pipe(replace(/("|'?)\/?styles\//g,  ghPages + '/styles/'))
+    .pipe(replace(/("|'?)\/?scripts\//g, ghPages + '/scripts/'))
+    .pipe(replace(/("|'?)\/?vendor\//g, ghPages + '/vendor/'))
+    .pipe(replace(/("|'?)\/?images\//g, ghPages + '/images/'))
+    .pipe(dest('dist'));
 }
 
 // Publish to Github
 function publishProject(){
-  ghpages.publish('dist');
+  return ghpages.publish('dist');
 };
 
 exports.build = parallel(
@@ -103,7 +106,7 @@ exports.build = parallel(
 
 exports.watch = parallel(browsersyncServe, watchTask);
 
-exports.deploy = series(publishProject);
+exports.deploy = series(pathFixes, publishProject);
 
 // if (process.env.NODE_ENV === 'production') {
 //   exports.build = series(sharedTasks, pathFixes, publishProject);
