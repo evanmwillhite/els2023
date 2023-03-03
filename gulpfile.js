@@ -57,6 +57,10 @@ function copyFontFiles(){
   return src('app/assets/fonts/**/*').pipe(dest('dist/fonts'));
 }
 
+function copyCNAME(){
+  return src('CNAME').pipe(dest('dist'));
+}
+
 // Browser Serve
 function browsersyncServe(cb){
   browsersync.init({
@@ -83,10 +87,10 @@ function watchTask(){
 function pathFixes(){
   const ghPages = '$1https://els.evanmwillhite.com/';
   return src('dist/**/*.html')
-    .pipe(replace(/("|'?)\/?styles\//g,  ghPages + '/styles/'))
-    .pipe(replace(/("|'?)\/?scripts\//g, ghPages + '/scripts/'))
-    .pipe(replace(/("|'?)\/?vendor\//g, ghPages + '/vendor/'))
-    .pipe(replace(/("|'?)\/?images\//g, ghPages + '/images/'))
+    .pipe(replace(/("|'?)\/?styles\//g,  ghPages + 'styles/'))
+    .pipe(replace(/("|'?)\/?scripts\//g, ghPages + 'scripts/'))
+    .pipe(replace(/("|'?)\/?vendor\//g, ghPages + 'vendor/'))
+    .pipe(replace(/("|'?)\/?images\//g, ghPages + 'images/'))
     .pipe(dest('dist'));
 }
 
@@ -106,7 +110,7 @@ exports.build = parallel(
 
 exports.watch = parallel(browsersyncServe, watchTask);
 
-exports.deploy = series(pathFixes, publishProject);
+exports.deploy = series(pathFixes, copyCNAME, publishProject);
 
 // if (process.env.NODE_ENV === 'production') {
 //   exports.build = series(sharedTasks, pathFixes, publishProject);
