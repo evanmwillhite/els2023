@@ -54,7 +54,7 @@ function copyFontFiles(){
 }
 
 function copyFiles(){
-  return src(['CNAME', 'app/crossdomain.xml', 'app/favicon.ico', 'app/robots.txt']).pipe(dest('dist'));
+  return src(['app/crossdomain.xml', 'app/favicon.ico', 'app/robots.txt']).pipe(dest('dist'));
 }
 
 // Browser Serve
