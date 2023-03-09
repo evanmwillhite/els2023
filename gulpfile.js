@@ -81,7 +81,7 @@ function watchTask(){
 
 // Fix Paths for Production URL.
 function pathFixes(){
-  const ghPages = '$1http://extremelawnservice.com/';
+  const ghPages = '$1https://extremelawnservice.com/';
   return src('dist/**/*.html')
     .pipe(replace(/("|'?)\/?styles\//g,  ghPages + 'styles/'))
     .pipe(replace(/("|'?)\/?scripts\//g, ghPages + 'scripts/'))
