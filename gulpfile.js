@@ -22,19 +22,34 @@ function htmlTask(){
     .pipe(dest('dist'));
 }
 
-// Sass Task
-function scssTask(){
+// Sass Dev Task
+function scssDevTask(){
   return src('app/assets/styles/application.scss', { sourcemaps: true })
       .pipe(sass())
       .pipe(postcss([ autoprefixer('last 2 version'), cssnano() ]))
       .pipe(dest('dist/styles', { sourcemaps: '.' }));
 }
 
-// JavaScript Task
-function jsTask(){
+// Sass Prod Task
+function scssProdTask(){
+  return src('app/assets/styles/application.scss')
+      .pipe(sass())
+      .pipe(postcss([ autoprefixer('last 2 version'), cssnano() ]))
+      .pipe(dest('dist/styles'));
+}
+
+// JavaScript Dev Task
+function jsDevTask(){
   return src('app/assets/scripts/**/*.js', { sourcemaps: true })
     .pipe(terser())
     .pipe(dest('dist/scripts', { sourcemaps: '.' }));
+}
+
+// JavaScript Prod Task
+function jsProdTask(){
+  return src('app/assets/scripts/**/*.js')
+    .pipe(terser())
+    .pipe(dest('dist/scripts'));
 }
 
 // Image Minification Task
@@ -73,10 +88,19 @@ function browsersyncReload(cb){
   cb();
 }
 
+exports.build = series(imagesTask, parallel(
+  htmlTask,
+  scssDevTask,
+  jsDevTask,
+  copyVendorFiles,
+  copyFontFiles,
+  copyFiles
+));
+
 // Watch Task
 function watchTask(){
   watch('app/**/*.html', series(htmlTask, browsersyncReload));
-  watch(['app/assets/**/*.scss', 'app/assets/**/*.js'], series(scssTask, jsTask, browsersyncReload));
+  watch(['app/assets/**/*.scss', 'app/assets/**/*.js'], series(scssDevTask, jsDevTask, browsersyncReload));
 }
 
 // Fix Paths for Production URL.
@@ -95,15 +119,15 @@ function publishProject(){
   return ghpages.publish('dist');
 };
 
-exports.build = series(imagesTask, parallel(
+exports.watch = parallel(browsersyncServe, watchTask);
+
+exports.deploybuild = series(imagesTask, parallel(
   htmlTask,
-  scssTask,
-  jsTask,
+  scssProdTask,
+  jsProdTask,
   copyVendorFiles,
   copyFontFiles,
   copyFiles
 ));
-
-exports.watch = parallel(browsersyncServe, watchTask);
 
 exports.deploy = series(pathFixes, publishProject);

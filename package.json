@@ -21,6 +21,6 @@
   },
   "scripts": {
     "start": "gulp build && gulp watch",
-    "deploy": "gulp build && gulp deploy"
+    "deploy": "gulp deploybuild && gulp deploy"
   }
 }
