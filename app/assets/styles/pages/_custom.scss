@@ -7,7 +7,7 @@ nav {
     span {
       display: none;
 
-      @media all and (min-width: 640em) {
+      @media all and (min-width: 768px) {
         display: inline;
       }
     }
